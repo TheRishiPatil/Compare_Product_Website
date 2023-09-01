@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Product List</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" th:href="@{/css/productListPage.css}">
+	<link rel="icon" type="image/x-icon" th:href="@{/images/main-logo.png}">
+</head>
+
+<body>
+	<div th:replace="navbar"></div>
+
+	<div class="main-container">
+		<div class="filter-list-container">
+			<form th:action="@{/filterProducts}" method="post">
+				<input type="hidden" name="category" th:value="${category}" />
+				<div class="filter-container">
+					<h4 class="filter-list-heading">FILTER BY</h4>
+					<button type="submit">Apply Filters</button>
+				</div>
+				<hr>
+
+				<div class="platform-filter-container">
+					<h5 class="list-heading">PLATFORM</h5>
+					<ul class="platform-list-container">
+						<li class="item" th:each="platform : ${platforms}">
+							<div class="cp-checkbox-item">
+								<input type="checkbox" name="selectedPlatforms" th:value="${platform}" />
+								<label>
+									<span class="text" th:text="${platform}"></span>
+								</label>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="price-filter-container">
+					<h5 class="list-heading">PRICE</h5>
+					<ul class="price-list-container">
+						<li class="item" th:each="priceRange : ${priceRanges}">
+							<div class="cp-checkbox-item">
+								<input type="checkbox" name="selectedPriceRange" th:value="${priceRange}" />
+								<label>
+									<span class="text" th:text="${priceRange}"></span>
+								</label>
+							</div>
+						</li>
+						<div>
+							<!-- see more button -->
+						</div>
+					</ul>
+				</div>
+
+				<div class="brand-filter-container">
+					<h5 class="list-heading">BRAND</h5>
+					<ul class="brand-list-container">
+						<li class="item" th:each="brand : ${brands}">
+							<div class="cp-checkbox-item">
+								<input type="checkbox" name="selectedBrandNames" th:value="${brand}" />
+								<label>
+									<span class="text" th:text="${brand}"></span>
+								</label>
+							</div>
+						</li>
+						<div>
+							<!-- see more button -->
+						</div>
+					</ul>
+				</div>
+
+			</form>
+		</div>
+
+
+		<p th:if="${message}" class="message">
+			<span class="alert-icon">
+				<img th:src="@{/images/alert.png}" alt="Alert Icon" class="alert">
+			</span>
+			<span th:text="${message}" class="message-text"></span>
+		</p>
+
+		<!-- product section -->
+
+		<div class="products-container">
+			<div class="products-header">
+				<h4 class="result-heading" th:text="'Results for ' + ${category}">Result</h4>
+				<form th:action="@{/compare-products}" method="get">
+					<button class="list-compare" type="submit">
+						Compare List</button>
+					<p class="list-compare-msg">Compare product limit is 5</p>
+				</form>
+
+				<!--	<form id="compare-form" action="javascript:void(0);" onsubmit="compareSelected()">
+					<button class="list-compare" type="submit">
+						Compare List
+					</button>
+					<p class="list-compare-msg">Compare product limit is 5</p>
+				</form> -->
+
+			</div>
+
+			<div class="product-list-container">
+				<div th:each="product : ${products}" class="per-product-list-container">
+					<div class="image-container">
+						<a th:href="${product.productUrl}">
+							<img class="product-image" th:src="${product.imgUrl}" alt="product image">
+							<img class="platform-image"
+								th:src="@{/images/logos/__${product.companyName.toLowerCase()}__.png}"
+								alt="Platform Image">
+						</a>
+					</div>
+					<div class="product-detail-container">
+						<a th:href="${product.productUrl}" class="product-name">
+							<span
+								th:text="${product.name.length() > 60 ? product.name.substring(0, 60) + '...' : product.name}">Product
+								Name</span>
+						</a>
+						<div class="product-price" th:text="'₹' + ${#numbers.formatInteger(product.price, 0, 'COMMA')}">
+							Price</div>
+						<div class="product-rating-and-review">
+							<div th:if="${product.rating != null and !#strings.isEmpty(product.rating) and !product.rating.equals('0')}"
+								class="product-rating">
+								<div class="product-rating">
+									<span th:text="${product.rating}">Rating</span>
+									<img class="rating-star" th:src="@{images/star.png}" alt="star">
+								</div>
+							</div>
+							<div th:if="${product.review != null and !#strings.isEmpty(product.review)}"
+								class="product-review">
+								<div class="product-reviews" th:text="'(' + ${product.review} + ' reviews)'">Review
+								</div>
+							</div>
+						</div>
+						<div class="bottom-buttons">
+
+							<div class="add-to-compare-checkbox">
+								<a th:href="@{/addtocompare(productUrl=${product.productUrl})}">
+									Add to Compare
+								</a>
+							</div>
+
+							<!--	<div class="add-to-compare-checkbox">
+								<a href="javascript:void(0);" onclick="addToCompare('${product.productUrl}')">
+									Add to Compare
+								</a>
+							</div>
+
+							<script src="/js/productListPage.js"></script>  -->
+
+							<form th:action="@{/compare}" method="get">
+								<input type="hidden" name="productName" th:value="${product.name}" />
+								<input type="hidden" name="brandname" th:value="${product.brandName}" />
+								<button class="platform-compare" type="submit">Platform comparison</button>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page-container">
+				<ul class="page">
+					<li th:if="${page > 0}">
+						<a th:href="@{/previousProducts(page=${page})}" class="page-slider">
+							<img th:src="@{/images/left-icon.png}" alt="right arrow image">
+						</a>
+					</li>
+					<li th:if="${page < totalPages - 1}">
+						<a th:href="@{/afterProducts(page=${page})}" class="page-slider">
+							<img th:src="@{/images/right-icon.png}" alt="right arrow image">
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<div th:replace="footer"></div>
+
+</body>
+
+</html>

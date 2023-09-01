@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Product List</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" th:href="@{/css/compareProduct.css}">
+	<link rel="icon" type="image/x-icon" th:href="@{/images/main-logo.png}">
+</head>
+
+<body>
+
+	<div th:replace="navbar"></div>
+
+	<div class="main-container">
+		<div class="back-img">
+			<a th:href="@{/filterProducts}">
+				<img th:src="@{images/back.png}" alt="Back" />
+			</a>
+		</div>
+		<div class="product-list-container">
+			<div class="col">
+				<h4>Flipkart</h4>
+				<div class="per-product-list-container" th:if="${flipkartProduct}">
+					<div class="image-container">
+						<img class="product-image" th:src="${flipkartProduct.imgUrl}" alt="product image">
+					</div>
+					<div class="product-detail-container">
+						<span
+							th:text="${flipkartProduct.name.length() > 60 ? flipkartProduct.name.substring(0, 60) + '...' : flipkartProduct.name}">Product
+							Name</span>
+						<div class="product-price"
+							th:text="'₹' + ${#numbers.formatInteger(flipkartProduct.price, 0, 'COMMA')}">Price</div>
+						<div class="product-rating-and-review">
+							<div th:if="${flipkartProduct.rating != null and !#strings.isEmpty(flipkartProduct.rating) and !flipkartProduct.rating.equals('0')}"
+								class="product-rating">
+								<div class="product-rating">
+									<span th:text="${flipkartProduct.rating}">Rating</span>
+									<img class="rating-star" th:src="@{images/star.png}" alt="star">
+								</div>
+							</div>
+							<div th:if="${flipkartProduct.review != null and !#strings.isEmpty(flipkartProduct.review)}"
+								class="product-review">
+								<div class="product-reviews" th:text="'(' + ${flipkartProduct.review} + ' reviews)'">
+									Review
+								</div>
+							</div>
+						</div>
+						<div class="btn-div">
+							<button class="btn" th:attr="data-url=${flipkartProduct.productUrl}"
+								onclick="window.location.href = this.getAttribute('data-url');">
+								Buy now
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-not-found" th:unless="${flipkartProduct}">
+					<div class="alert-msg">
+						<img class="alert" th:src="@{/images/alert.png}">
+						<p class="visit" th:text="${productName} + ' is maybe not available on Flipkart.'"></p>
+						<p class="visit">Please Visit <span><a href="https://www.flipkart.com/"> Flipkart.com</a></span>
+							for other similar products</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<h4>Amazon</h4>
+				<div class="per-product-list-container" th:if="${amazonProduct}">
+					<div class="image-container">
+						<img class="product-image" th:src="${amazonProduct.imgUrl}" alt="product image">
+					</div>
+					<div class="product-detail-container">
+						<span
+							th:text="${amazonProduct.name.length() > 60 ? amazonProduct.name.substring(0, 60) + '...' : amazonProduct.name}">Product
+							Name</span>
+						<div class="product-price"
+							th:text="'₹' + ${#numbers.formatInteger(amazonProduct.price, 0, 'COMMA')}">Price</div>
+						<div class="product-rating-and-review">
+							<div th:if="${amazonProduct.rating != null and !#strings.isEmpty(amazonProduct.rating) and !amazonProduct.rating.equals('0')}"
+								class="product-rating">
+								<div class="product-rating">
+									<span th:text="${amazonProduct.rating}">Rating</span>
+									<img class="rating-star" th:src="@{images/star.png}" alt="star">
+								</div>
+							</div>
+							<div th:if="${amazonProduct.review != null and !#strings.isEmpty(amazonProduct.review)}"
+								class="product-review">
+								<div class="product-reviews" th:text="'(' + ${amazonProduct.review} + ' reviews)'">
+									Review
+								</div>
+							</div>
+						</div>
+						<div class="btn-div">
+							<button class="btn" th:attr="data-url=${amazonProduct.productUrl}"
+								onclick="window.location.href = this.getAttribute('data-url');">
+								Buy now
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-not-found" th:unless="${amazonProduct}">
+					<div class="alert-msg">
+						<img class="alert" th:src="@{/images/alert.png}">
+						<p class="visit" th:text="${productName} + ' is maybe not available on Amazon.'"></p>
+						<p class="visit">Please Visit <span><a href="https://www.amazon.com/"> Amazon.com</a></span> for
+							other similar products</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<h4>Croma</h4>
+				<div class="per-product-list-container" th:if="${cromaProduct}">
+					<div class="image-container">
+						<img class="product-image" th:src="${cromaProduct.imgUrl}" alt="product image">
+					</div>
+					<div class="product-detail-container">
+						<span
+							th:text="${cromaProduct.name.length() > 60 ? cromaProduct.name.substring(0, 60) + '...' : cromaProduct.name}">Product
+							Name</span>
+						<div class="product-price"
+							th:text="'₹' + ${#numbers.formatInteger(cromaProduct.price, 0, 'COMMA')}">Price</div>
+						<div class="product-rating-and-review">
+							<div th:if="${cromaProduct.rating != null and !#strings.isEmpty(cromaProduct.rating) and !cromaProduct.rating.equals('0')}"
+								class="product-rating">
+								<div class="product-rating">
+									<span th:text="${cromaProduct.rating}">Rating</span>
+									<img class="rating-star" th:src="@{images/star.png}" alt="star">
+								</div>
+							</div>
+							<div th:if="${cromaProduct.review != null and !#strings.isEmpty(cromaProduct.review)}"
+								class="product-review">
+								<div class="product-reviews" th:text="'(' + ${cromaProduct.review} + ' reviews)'">Review
+								</div>
+							</div>
+						</div>
+						<div class="btn-div">
+							<button class="btn" th:attr="data-url=${cromaProduct.productUrl}"
+								onclick="window.location.href = this.getAttribute('data-url');">
+								Buy now
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-not-found" th:unless="${cromaProduct}">
+					<div class="alert-msg">
+						<img class="alert" th:src="@{/images/alert.png}">
+						<p class="visit" th:text="${productName} + ' is maybe not available on Croma.'"></p>
+						<p class="visit">Please Visit <span><a href="https://www.croma.com/"> Croma.com</a></span> for
+							other similar products</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<h4>Jiomart</h4>
+				<div class="per-product-list-container" th:if="${jiomartProduct}">
+					<div class="image-container">
+						<img class="product-image" th:src="${jiomartProduct.imgUrl}" alt="product image">
+					</div>
+					<div class="product-detail-container">
+						<span
+							th:text="${jiomartProduct.name.length() > 60 ? jiomartProduct.name.substring(0, 60) + '...' : jiomartProduct.name}">Product
+							Name</span>
+						<div class="product-price"
+							th:text="'₹' + ${#numbers.formatInteger(jiomartProduct.price, 0, 'COMMA')}">Price</div>
+						<div class="product-rating-and-review">
+							<div th:if="${jiomartProduct.rating != null and !#strings.isEmpty(jiomartProduct.rating) and !jiomartProduct.rating.equals('0')}"
+								class="product-rating">
+								<div class="product-rating">
+									<span th:text="${jiomartProduct.rating}">Rating</span>
+									<img class="rating-star" th:src="@{images/star.png}" alt="star">
+								</div>
+							</div>
+							<div th:if="${jiomartProduct.review != null and !#strings.isEmpty(jiomartProduct.review)}"
+								class="product-review">
+								<div class="product-reviews" th:text="'(' + ${jiomartProduct.review} + ' reviews)'">
+									Review
+								</div>
+							</div>
+						</div>
+						<div class="btn-div">
+							<button class="btn" th:attr="data-url=${jiomartProduct.productUrl}"
+								onclick="window.location.href = this.getAttribute('data-url');">
+								Buy now
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-not-found" th:unless="${jiomartProduct}">
+					<div class="alert-msg">
+						<img class="alert" th:src="@{/images/alert.png}">
+						<p class="visit" th:text="${productName} + ' is maybe not available on Jio Mart.'"></p>
+						<p class="visit">Please Visit <span><a href="https://www.jiomart.com/"> Jiomart.com</a></span>
+							for other similar products</p>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="footer"></div>
+
+</body>
+
+</html>

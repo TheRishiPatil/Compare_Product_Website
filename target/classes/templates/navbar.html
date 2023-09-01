@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+</head>
+
+<body>
+	<nav>
+		<div class="nav-left">
+			<div class="logo">
+				<img th:src="@{/images/logo.png}" alt="logo" width="120px" height="28px">
+			</div>
+			<div class="search">
+				<form th:action="@{/search}" method="post">
+					<input type="text" name="category" placeholder="Search for any product...">
+					<button type="submit" class="search-button">
+						<img th:src="@{/images/search.png}" alt="Search" class="search-image">
+					</button>
+					<div class="autocom-box">
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script src="/js/script.js"></script>
+		<script src="/js/suggestions.js"></script>
+
+		<div class="nav-items">
+			<a class="nav-link" th:href="@{/}">Home</a>
+			<a class="nav-link" href="https://www.linkedin.com/in/patilrishikesh">About Me</a>
+
+			<div class="drop-down-item">
+				<a class="nav-link" href="#">Platforms
+					<img th:src="@{/images/down-icon.png}" class="down-icon">
+				</a>
+				<div class="dropdown-menu">
+					<div class="dropdown-menu-list">
+						<a class="dropdown-item" href="https://www.flipkart.com/">Flipkart</a>
+						<a class="dropdown-item" href="https://www.amazon.com/">Amazon</a>
+						<a class="dropdown-item" href="https://www.croma.com/">Croma</a>
+						<a class="dropdown-item" href="https://www.jiomart.com/">Jio Mart</a>
+					</div>
+				</div>
+			</div>
+			<a class="nav-link" href="#" onclick="togglePopup()">Note</a>
+		</div>
+	</nav>
+
+	<div class="popup-msg" id="popup-1">
+		<div class="note-msg">
+			<div class="content">
+				<div class="popup-btn" onclick="togglePopup()">
+					<img th:src="@{images/cross.png}">
+				</div>
+				<h4 class="popup-heading">Note</h4>
+				<p class="content-text">This platform presents collected product information from multiple e-commerce platforms such
+					as Flipkart, Amazon, Croma, and JioMart; allowing users to compare product prices and specifications
+					in one place.</p>
+				<p class="content-text">However, it is important to note that the products displayed on this website are
+					simulated representations (dummy products), and as a result, the prices of actual products on their
+					respective live websites might be different.</p>
+				<p class="content-text">Please be aware that the showcased products have been collected from different
+					websites like Flipkart, Amazon, Croma, and JioMart for the purpose of providing a comprehensive
+					product comparison experience.</p>
+				<p class="content-text">This platform does not support or promote any biases or hatred towards any
+					specific website or company. Moreover, this website does not engage in any promotional activities.
+				</p>
+				<p class="content-text">It is essential to clarify that the primary objective behind the creation of
+					this website is for educational and learning purposes only. This platform does not have any
+					commercial, promotional, or competitive motives.</p>
+				<p class="content-text">Users are kindly advised to approach the information presented on this website
+					with the understanding that it serves illustrative and educational intentions. Consequently, the
+					data provided here might not accurately reflect real-time pricing, prevailing market conditions, or
+					the immediate availability of products.</p>
+				<p class="content-text">We appreciate your comprehension of the above-stated points.</p>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function togglePopup() {
+			document.getElementById("popup-1").classList.toggle("active");
+		}
+	</script>
+</body>
+
+</html>

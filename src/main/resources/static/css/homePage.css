@@ -1,0 +1,157 @@
+/******** category section ***********/
+
+.categories  {
+	margin: 50px 250px;
+	padding: 25px;
+	border: 1px solid  white;
+	border-radius: 5px;
+}
+
+.category {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.subcategory {
+	display: flex;
+	justify-content: space-between;
+}
+
+.variety{
+	margin: 0px 30px;
+}
+
+.category-link {
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.category-link:hover {
+	text-decoration: none;
+}
+
+.category-image {
+	padding: 25px;
+	border: 1px solid transparent;
+	border-radius: 5px;
+	transition: border-color 0.5s;
+}
+
+.variety:hover .category-image {
+	border: 1px solid white;
+}
+
+.category-text {
+	color: #D9D9D9;
+	transition: color 0.5s;
+}
+
+.variety:hover .category-text {
+	color: white;
+}
+
+
+.product_image{
+	width: 40px;
+}
+
+
+/******** slide bar ***********/
+
+.slider {
+	width: 100%;
+	display: flex;
+	padding: 10px 0px;
+	overflow: hidden;
+	position: relative;
+}
+
+.slider_image {
+	width: 100%;
+	padding-right: 10px;
+
+}
+
+.slider_images {
+	display: flex;
+	padding-left: 0px 10px;
+}
+
+.btn-container {
+	margin: auto;
+	width: 10px;
+	z-index: 1;
+	position: relative;
+}
+
+.btn {
+	padding: 15px 10px;
+	background-color: rgba(255, 255, 255, 0.05);
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-right {
+	position: relative;
+	left: -37px;
+}
+
+.btn-left {
+	position: relative;
+}
+
+
+/******** platform section ***********/
+
+.platforms {
+	display: flex;
+}
+
+.platform {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.05);
+	width: 25%;
+	height: 40px;
+	text-decoration: none;
+	transition: background-color 0.3s;
+}
+
+.platform:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.platform:hover .platform-text {
+	color: white;
+}
+
+.platform-text {
+	color: #D9D9D9;
+	font-size: 18px;
+	text-decoration: none;
+	margin: 0;
+}
+
+.platform a {
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+.platform a:hover {
+	text-decoration: none;
+}

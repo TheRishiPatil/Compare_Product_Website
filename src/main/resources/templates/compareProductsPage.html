@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Compare Products</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" th:href="@{/css/compareProductPage.css}">
+	<link rel="icon" type="image/x-icon" th:href="@{/images/main-logo.png}">
+</head>
+
+<body>
+	<div th:replace="navbar"></div>
+
+	<div class="heading-div">
+		<h4 class="heading">Compare Products</h4>
+	</div>
+	<div class="main-container">
+		<div class="back-img">
+			<a th:href="@{/filterProducts}">
+				<img th:src="@{images/back.png}" alt="Back" />
+			</a>
+		</div>
+		<div class="product-list-container">
+			<div th:each="product, productIndex : ${comparedProducts}" class="per-product-list-container">
+				<form th:action="@{/removeProduct}" method="post">
+					<input type="hidden" name="productIndex" th:value="${productIndex.index}">
+					<button type="submit" class="remove-button">
+						<img th:src="@{images/cross.png}" alt="cross" width="25px">
+					</button>
+				</form>
+				<div class="image-container">
+					<img class="product-image" th:src="${product.imgUrl}" alt="product image">
+				</div>
+				<div class="product-detail-container">
+					<span
+						th:text="${product.name.length() > 60 ? product.name.substring(0, 60) + '...' : product.name}">Product
+						Name</span>
+					<div class="product-price" th:text="'₹' + ${#numbers.formatInteger(product.price, 0, 'COMMA')}">
+						Price</div>
+					<div class="product-rating-and-review">
+						<div th:if="${product.rating != null and !#strings.isEmpty(product.rating) and !product.rating.equals('0')}"
+							class="product-rating">
+							<div class="product-rating">
+								<span th:text="${product.rating}">Rating</span>
+								<img class="rating-star" th:src="@{images/star.png}" alt="star">
+							</div>
+						</div>
+						<div th:if="${product.review != null and !#strings.isEmpty(product.review)}"
+							class="product-review">
+							<div class="product-reviews" th:text="'(' + ${product.review} + ' reviews)'">Review</div>
+						</div>
+					</div>
+					<div class="product-description">
+						<span class="description" th:text="${product.description}">Description</span>
+					</div>
+					<div class="btn-div">
+						<button class="btn" th:attr="data-url=${product.productUrl}"
+							onclick="window.location.href = this.getAttribute('data-url');">
+							Buy now
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="footer"></div>
+
+</body>
+
+</html>
